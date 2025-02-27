@@ -1,120 +1,135 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import logo from '../assets/logo.png'; 
 
 function Home() {
+  // สถานะสำหรับการ hover
+  const [hoveredCard, setHoveredCard] = useState(null);
+
+  // ฟังก์ชันเปลี่ยนสถานะเมื่อเมาส์ผ่าน
+  const handleMouseEnter = (index) => {
+    setHoveredCard(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCard(null);
+  };
+
   return (
-    <div className="home-container">
-      {/* Hero Section */}
-      <header className="hero">
-        <div className="hero-content">
-          <h1>Vintage Kicks</h1>
-          <p>Discover the finest collection of classic & retro sneakers.</p>
-          <Link to="/products" className="btn btn-primary">
-            View Collection
-          </Link>
-        </div>
-      </header>
-
-      {/* Navigation Links */}
-      <nav className="nav-links">
-        <Link to="/products" className="nav-item">Shop</Link>
-        <Link to="/orders" className="nav-item">My Orders</Link>
-        <Link to="/login" className="nav-item">Login</Link>
-        <Link to="/register" className="nav-item">Register</Link>
-      </nav>
-
-      {/* Featured Section */}
-      <section className="featured">
-        <h2>Featured Vintage Sneakers</h2>
-        <div className="featured-grid">
-          <div className="shoe-card">
-            <img src="/images/shoe1.jpg" alt="Vintage Shoe 1" />
-            <p>Adidas samba</p>
-          </div>
-          <div className="shoe-card">
-            <img src="/images/shoe2.jpg" alt="Vintage Shoe 2" />
-            <p>vans</p>
-          </div>
-          <div className="shoe-card">
-            <img src="/images/shoe3.jpg" alt="Vintage Shoe 3" />
-            <p>Converse</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer">
-        <p>&copy; 2025 Vintage Kicks. All rights reserved.</p>
-      </footer>
-
-      {/* CSS Styles */}
-      <style>
-        {`
-          .home-container {
-            text-align: center;
-            font-family: Arial, sans-serif;
-          }
-          .hero {
-            background: url('/images/hero-bg.jpg') center/cover no-repeat;
-            color: white;
-            padding: 100px 20px;
-          }
-          .hero-content h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-          }
-          .hero-content p {
-            font-size: 18px;
-            margin-bottom: 20px;
-          }
-          .btn {
-            background-color: #8B4513;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-          }
-          .btn:hover {
-            background-color: #A0522D;
-          }
-          .nav-links {
-            margin: 20px 0;
-          }
-          .nav-item {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-          }
-          .featured {
-            padding: 40px 20px;
-            background-color: #f8f8f8;
-          }
-          .featured-grid {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-          }
-          .shoe-card {
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            width: 200px;
-          }
-          .shoe-card img {
-            width: 100%;
-            border-radius: 5px;
-          }
-          .footer {
-            padding: 10px;
-            background: #333;
-            color: white;
-          }
-        `}
-      </style>
+    <div style={styles.container}>
+      <div style={styles.content}>
+        <img
+          src={logo} // ใช้โลโก้ที่นำเข้ามา
+          alt="Logo"
+          style={styles.logo}
+        />
+        <h1 style={styles.title}>Welcome to Atiwit Shop</h1>
+        <p style={styles.subtitle}>Your one-stop shop for amazing products!</p>
+      </div>
+      <div style={styles.cardContainer}>
+        <Link
+          to="/products"
+          style={{
+            ...styles.card,
+            ...(hoveredCard === 1 ? styles.cardHover : {}),
+          }}
+          onMouseEnter={() => handleMouseEnter(1)}
+          onMouseLeave={handleMouseLeave}
+        >
+          <h3>View Products</h3>
+          <p>Browse our wide range of products</p>
+        </Link>
+        <Link
+          to="/orders"
+          style={{
+            ...styles.card,
+            ...(hoveredCard === 2 ? styles.cardHover : {}),
+          }}
+          onMouseEnter={() => handleMouseEnter(2)}
+          onMouseLeave={handleMouseLeave}
+        >
+          <h3>My Orders</h3>
+          <p>Check your past and current orders</p>
+        </Link>
+        <Link
+          to="/cart"
+          style={{
+            ...styles.card,
+            ...(hoveredCard === 3 ? styles.cardHover : {}),
+          }}
+          onMouseEnter={() => handleMouseEnter(3)}
+          onMouseLeave={handleMouseLeave}
+        >
+          <h3>My Cart</h3>
+          <p>View items you have added to your cart</p>
+        </Link>
+      </div>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between",
+    minHeight: "100vh",
+    backgroundColor: "#ffffff",
+    color: "#000",
+    textAlign: "center",
+    padding: "20px",
+    backgroundImage: "url('https://via.placeholder.com/1920x1080')", // ใส่ URL ของรูปภาพพื้นหลังที่ต้องการ
+    backgroundSize: "cover", // ให้ขนาดของภาพพอดีกับขนาดหน้าจอ
+    backgroundPosition: "center", // จัดตำแหน่งภาพให้อยู่ตรงกลาง
+  },
+  content: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    marginTop: "100px", 
+  },
+  logo: {
+    width: "150px", 
+    marginBottom: "20px", 
+  },
+  title: {
+    fontSize: "3rem",
+    marginBottom: "15px",
+    color: "#FF0000", 
+  },
+  subtitle: {
+    fontSize: "1.5rem",
+    marginBottom: "30px",
+    opacity: "0.8",
+  },
+  cardContainer: {
+    display: "flex",
+    gap: "20px",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    width: "100%",
+    paddingBottom: "20px",
+  },
+  card: {
+    width: "250px",
+    padding: "20px",
+    backgroundColor: "#f8f9fa",
+    color: "#000",
+    textDecoration: "none",
+    borderRadius: "10px",
+    textAlign: "center",
+    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+    boxShadow: "0 4px 8px rgba(81, 3, 3, 0.2)",
+  },
+  cardHover: {
+    transform: "scale(1.05) translateY(-10px)", 
+    boxShadow: "0 8px 16px rgba(255, 0, 0, 0.3)", 
+  },
+};
 
 export default Home;
