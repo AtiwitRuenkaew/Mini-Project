@@ -51,7 +51,7 @@ function App() {
                 <div className="container">
                     <Link className="navbar-brand fw-bold text-light d-flex align-items-center" to="/">
                         <img src={logo} alt="Shop Logo" style={{ width: "40px", height: "40px", marginRight: "10px" }} />
-                        Duck Shop
+                        Atiwit Shop
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
